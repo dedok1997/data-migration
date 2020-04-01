@@ -22,7 +22,6 @@ public final class Config {
         maxRetry = Integer.parseInt(properties.getProperty("max.retry"));
         scheme = properties.getProperty("scheme");
         host = properties.getProperty("host");
-
     }
 
 

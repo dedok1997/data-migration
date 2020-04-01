@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'application'
+    id "org.sonarqube" version "2.7"
+    id 'jacoco'
 }
 
 group 'ru.jenya'
@@ -26,8 +29,6 @@ sourceSets {
     test.java.srcDirs += 'src/test/java/'
 }
 
-
-
 dependencies {
     compile 'org.jetbrains:annotations:16.0.2'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
@@ -36,4 +37,5 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.3.1'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
 }

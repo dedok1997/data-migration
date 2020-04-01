@@ -17,9 +17,9 @@ public class DataManager {
         Arrays.stream(files).parallel().forEach(fileName -> {
             try {
                 ServerFile file = oldStorage.get(fileName);
-                if(!newStorage.put(file)){
+                if (!newStorage.put(file)) {
                     throwable.set(new StorageException(String.format("Can't upload %s", fileName)));
-                }else {
+                } else {
                     oldStorage.delete(fileName);
                 }
             } catch (StorageException e) {
