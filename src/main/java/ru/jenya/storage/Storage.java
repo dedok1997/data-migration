@@ -8,5 +8,5 @@ public interface Storage {
 
     ServerFile get(String name) throws StorageException;
 
-    boolean put(ServerFile serverFile) throws StorageException;
+    boolean delete(String fileName) throws StorageException;
 }

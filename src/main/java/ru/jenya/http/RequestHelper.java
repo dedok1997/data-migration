@@ -5,7 +5,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.jetbrains.annotations.NotNull;
 import ru.jenya.config.Config;
 
-public class RequestHelper {
+public final class RequestHelper {
+
+    private RequestHelper() {
+    }
 
     @NotNull
     public static CloseableHttpClient httpClient() {

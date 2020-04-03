@@ -3,24 +3,24 @@ package ru.jenya;
 import org.jetbrains.annotations.NotNull;
 import ru.jenya.data.ServerFile;
 import ru.jenya.http.URIManager;
-import ru.jenya.storage.OldStorage;
+import ru.jenya.storage.NewStorage;
 import ru.jenya.storage.StorageException;
 
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class OldStorageMock extends OldStorage {
+public class NewStorageMock extends NewStorage {
 
     private final static Random random = new Random();
     private final ConcurrentHashMap<String, ServerFile> data;
 
-    public OldStorageMock(String storageName, URIManager uriManager) {
+    public NewStorageMock(String storageName, URIManager uriManager) {
         super(storageName, uriManager);
         data = new ConcurrentHashMap<>();
     }
 
-    public static OldStorage getRandomDataStorage(int length) throws StorageException {
-        OldStorage storage = new OldStorageMock("", new URIManager("", "", 0));
+    public static NewStorage getRandomDataStorage(int length) throws StorageException {
+        NewStorage storage = new NewStorageMock("", new URIManager("", "", 0));
         for (int i = 0; i < length; i++) {
             storage.put(new ServerFile(Integer.toString(i), Integer.toString(i).getBytes()));
         }
@@ -40,14 +40,14 @@ public class OldStorageMock extends OldStorage {
     }
 
     @Override
-    public ServerFile get(String name) throws StorageException {
+    public ServerFile get(@NotNull String name) throws StorageException {
         if (data.containsKey(name))
             return data.get(name);
         throw new StorageException("");
     }
 
     @Override
-    public boolean put(ServerFile file) throws StorageException {
+    public boolean put(@NotNull ServerFile file) throws StorageException {
         data.put(file.name, file);
         return true;
     }

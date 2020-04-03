@@ -8,7 +8,6 @@ import java.net.URISyntaxException;
 
 public class URIManager {
 
-
     @NotNull
     private final String host;
     @NotNull
@@ -21,13 +20,6 @@ public class URIManager {
         this.port = port;
     }
 
-
-    /**
-     * @param name - name of storage(first fragment)
-     * @param path - tail of path. Must start with '/'
-     * @return
-     * @throws URISyntaxException
-     */
     public URI get(@NotNull String name, @NotNull String path) throws URISyntaxException {
         return new URI(scheme, null, host, port, String.join("", "/", name, path), null, null);
     }

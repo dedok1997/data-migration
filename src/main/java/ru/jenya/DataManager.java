@@ -2,7 +2,7 @@ package ru.jenya;
 
 import org.jetbrains.annotations.NotNull;
 import ru.jenya.data.ServerFile;
-import ru.jenya.storage.OldStorage;
+import ru.jenya.storage.NewStorage;
 import ru.jenya.storage.Storage;
 import ru.jenya.storage.StorageException;
 
@@ -11,7 +11,22 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class DataManager {
 
-    public void migrate(@NotNull OldStorage oldStorage, @NotNull Storage newStorage) throws StorageException {
+//    public void migrate(@NotNull Storage oldStorage, @NotNull NewStorage newStorage) throws StorageException {
+//        String[] files = oldStorage.files();
+//        int x = 0;
+//        for (String fileName : files) {
+//            x++;
+//            ServerFile file = oldStorage.get(fileName);
+//            if (!newStorage.put(file)) {
+//                throw (new StorageException(String.format("Can't upload %s", fileName)));
+//            } else {
+//                oldStorage.delete(fileName);
+//            }
+//            if(x > 10) break;
+//        }
+//    }
+
+    public void migrate(@NotNull Storage oldStorage, @NotNull NewStorage newStorage) throws StorageException {
         String[] files = oldStorage.files();
         AtomicReference<StorageException> throwable = new AtomicReference<>(null);
         Arrays.stream(files).parallel().forEach(fileName -> {

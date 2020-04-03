@@ -1,14 +1,9 @@
 package ru.jenya.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.jetbrains.annotations.NotNull;
 import ru.jenya.data.ServerFile;
@@ -45,7 +40,7 @@ public class StorageImpl implements Storage {
     }
 
     @Override
-    public ServerFile get(String name) throws StorageException {
+    public ServerFile get(@NotNull String name) throws StorageException {
         try (CloseableHttpClient client = RequestHelper.httpClient()) {
             HttpGet get = new HttpGet(uriManager.get(this.name, "/files/" + name));
             HttpResponse response = client.execute(get);
@@ -55,19 +50,12 @@ public class StorageImpl implements Storage {
         }
     }
 
-    @Override
-    public boolean put(ServerFile data) throws StorageException {
+    public boolean delete(@NotNull String fileName) throws StorageException {
         try (CloseableHttpClient client = RequestHelper.httpClient()) {
-            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
-            entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            entityBuilder.addPart("file", new ByteArrayBody(data.getContent(), data.name));
-            HttpEntity entity = entityBuilder.build();
-            RequestBuilder builder = RequestBuilder.post(uriManager.get(name, "/files"));
-            builder.setEntity(entity);
-            HttpUriRequest multipartRequest = builder.build();
-            HttpResponse response = client.execute(multipartRequest);
+            HttpDelete delete = new HttpDelete(uriManager.get(this.name, "/files/" + fileName));
+            HttpResponse response = client.execute(delete);
             return response.getStatusLine().getStatusCode() == 200;
-        } catch (URISyntaxException | IOException e) {
+        } catch (IOException | URISyntaxException e) {
             throw new StorageException(e);
         }
     }
