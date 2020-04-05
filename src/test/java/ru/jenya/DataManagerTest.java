@@ -1,6 +1,7 @@
 package ru.jenya;
 
 import org.junit.Test;
+import ru.jenya.migration.DataManager;
 import ru.jenya.storage.NewStorage;
 import ru.jenya.storage.Storage;
 import ru.jenya.storage.StorageException;
@@ -22,6 +23,5 @@ public class DataManagerTest {
         dataManager.migrate(oldStorage, newStorage);
         assertEquals(0, oldStorage.files().length);
         assertEquals(oldStorageFiles, new HashSet<>(Arrays.asList(newStorage.files())));
-        ;
     }
 }

@@ -15,17 +15,16 @@ public final class Config {
     private Config() {
         try {
             properties.load(this.getClass().getClassLoader().getResourceAsStream("application.properties"));
-
             port = Integer.parseInt(properties.getProperty("port"));
             maxRetry = Integer.parseInt(properties.getProperty("max.retry"));
             scheme = properties.getProperty("scheme");
             host = properties.getProperty("host");
         } catch (IOException | NumberFormatException e) {
-            throw new LoadConfigException("Can't load application.properties");
+            throw new LoadConfigException("Can't load application.properties", e);
         }
     }
 
-    public String getProperty(String name){
+    public String getProperty(String name) {
         return properties.getProperty(name);
     }
 }

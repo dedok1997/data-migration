@@ -50,6 +50,7 @@ public class StorageImpl implements Storage {
         }
     }
 
+    @Override
     public boolean delete(@NotNull String fileName) throws StorageException {
         try (CloseableHttpClient client = RequestHelper.httpClient()) {
             HttpDelete delete = new HttpDelete(uriManager.get(this.name, "/files/" + fileName));

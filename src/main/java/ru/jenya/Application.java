@@ -2,6 +2,7 @@ package ru.jenya;
 
 import ru.jenya.config.Config;
 import ru.jenya.http.URIManager;
+import ru.jenya.migration.DataManager;
 import ru.jenya.storage.NewStorage;
 import ru.jenya.storage.Storage;
 import ru.jenya.storage.StorageException;
